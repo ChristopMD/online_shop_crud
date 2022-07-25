@@ -6,17 +6,17 @@
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             if (isset($_GET['id'])) {
-                echo json_encode(Pedido::getById($_GET['id']));
+                echo json_encode(Categoria::getById($_GET['id']));
             }
             else{
-                echo json_encode(Pedido::getAll());
+                echo json_encode(Categoria::getAll());
             }
             break;
         
         case 'POST':
             $datos = json_decode(file_get_contents('php://input'));
             if ($datos != NULL) {
-                if (Pedido::insert($datos->nombre)) {
+                if (Categoria::insert($datos->nombre)) {
                     http_response_code(200);
                 }
                 else {
@@ -31,7 +31,7 @@
         case 'PUT':
             $datos = json_decode(file_get_contents('php://input'));
             if ($datos != NULL) {
-                if (Pedido::updateById($datos->id, $datos->nombre)) {
+                if (Categoria::updateById($datos->id, $datos->nombre)) {
                     http_response_code(200);
                 }
                 else {
@@ -45,7 +45,7 @@
         
         case 'DELETE':
             if (isset($_GET['id'])) {
-                if(Pedido::deleteById($_GET['id'])){
+                if(Categoria::deleteById($_GET['id'])){
                     http_response_code(200);
                 }
                 else{

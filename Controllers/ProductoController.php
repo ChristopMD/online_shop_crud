@@ -6,17 +6,17 @@
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             if (isset($_GET['id'])) {
-                echo json_encode(Pedido::getById($_GET['id']));
+                echo json_encode(Producto::getById($_GET['id']));
             }
             else{
-                echo json_encode(Pedido::getAll());
+                echo json_encode(Producto::getAll());
             }
             break;
         
         case 'POST':
             $datos = json_decode(file_get_contents('php://input'));
             if ($datos != NULL) {
-                if (Pedido::insert($datos->categoria_id, $datos->nombre, $datos->descripcion, $datos->precio, $datos->stock)) {
+                if (Producto::insert($datos->categoria_id, $datos->nombre, $datos->descripcion, $datos->precio, $datos->stock)) {
                     http_response_code(200);
                 }
                 else {
@@ -31,7 +31,7 @@
         case 'PUT':
             $datos = json_decode(file_get_contents('php://input'));
             if ($datos != NULL) {
-                if (Pedido::updateById($datos->id, $datos->categoria_id, $datos->nombre, $datos->descripcion, $datos->precio)) {
+                if (Producto::updateById($datos->id, $datos->categoria_id, $datos->nombre, $datos->descripcion, $datos->precio, $datos->stock)) {
                     http_response_code(200);
                 }
                 else {
@@ -45,7 +45,7 @@
         
         case 'DELETE':
             if (isset($_GET['id']) && isset($_GET['categoria_id'])) {
-                if(Pedido::deleteById($_GET['id'], $_GET['categoria_id'])){
+                if(Producto::deleteById($_GET['id'], $_GET['categoria_id'])){
                     http_response_code(200);
                 }
                 else{
